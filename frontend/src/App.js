@@ -33,12 +33,12 @@ function App() {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`${API_URL}${id}`, { method: "DELETE" });
+    await fetch(`${API_URL}/${id}`, { method: "DELETE" });
     fetchTasks();
   };
 
   const handleToggleComplete = async (task) => {
-    await fetch(`${API_URL}${task.id}`, {
+    await fetch(`${API_URL}/${task.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: task.title, completed: !task.completed }),
@@ -52,7 +52,7 @@ function App() {
   };
 
   const handleUpdate = async (id) => {
-    await fetch(`${API_URL}${id}`, {
+    await fetch(`${API_URL}/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: editingText }),
