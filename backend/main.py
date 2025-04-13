@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-import models, schemas, crud
+import models
+import schemas
+import crud
 from database import engine, SessionLocal
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -8,7 +10,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://transcendent-eclair-b23a88.netlify.app/"],
+    allow_origins=["https://transcendent-eclair-b23a88.netlify.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -44,7 +46,11 @@ def read_single(todo_id: int, db: Session = Depends(get_db)):
 
 
 @app.put("/todos/{todo_id}", response_model=schemas.ToDoOut)
-def update(todo_id: int, todo: schemas.ToDoUpdate, db: Session = Depends(get_db)):
+def update(
+    todo_id: int,
+    todo: schemas.ToDoUpdate,
+    db: Session = Depends(get_db)
+):
     return crud.update_todo(db, todo_id, todo)
 
 
